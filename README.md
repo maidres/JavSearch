@@ -1,6 +1,7 @@
 #javID-SearchTool
 
 Find magnetlink and download cover image via javID
+
 一个可以通过番号来下载封面和磁链的单线程小工具。
 
 
@@ -20,7 +21,7 @@ $ python jav-download.py
 ## Usage
 
 ```bash
-  Usage: python .py [options]
+  Usage: python jav-download.py [options]
 
   Options:
 
