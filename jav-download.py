@@ -7,7 +7,7 @@
 import optparse,argparse,sys,os,requests,re
 from bs4 import BeautifulSoup
 
-
+url = "https://www.javbus.com/"
 #xx-net proxy
 goagentproxy = {
         'http': 'http://127.0.0.1:8087',
@@ -83,7 +83,7 @@ def download_image(avcode):
     r = s.get(url+avcode, proxies=socks5proxy)
     gid = re.findall(r'[\d]{10,11}',r.text)
     #gid 10-11
-    print gid
+
     soup = BeautifulSoup(r.content.decode('utf-8', 'ignore'),'html.parser')
 
     #get name
