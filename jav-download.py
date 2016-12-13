@@ -22,7 +22,7 @@ proxy = {
 def main():
     # get avID
     parser = argparse.ArgumentParser(description='Find magnetlink and download cover image via javID')
-    parser.add_argument('-a','--id',help='avcode you want to download' ,dest='id',default=None)
+    parser.add_argument('-i','--id',help='avcode you want to download' ,dest='id',default=None)
     parser.add_argument('-p','--proxy',help='set your own HTTP/socks5',dest='proxy',default=None)
 
     args = parser.parse_args()
@@ -50,7 +50,7 @@ def main():
     if not proxies == None:
         proxy['http'] = proxies
         proxy['https'] = proxies
-        print '[*] proxyurl set to' + proxies
+        print '[*] proxyurl set to ' + proxies
 
 
     #change directory to library
@@ -70,10 +70,10 @@ def main():
 
 def download_image_over_socks5(img_src):
 
-    ir = requests.get(img_src,proxies=socks5proxy)
+    ir = requests.get(img_src,proxies=proxy)
     if ir.status_code == 200:
         open(img_src.split(".")[-2].split("/")[-1]+os.path.splitext(img_src)[1], 'wb').write(ir.content)
-    print img_src.split(".")[-2].split("/")[-1]+" done!"
+    print '[-] '+img_src.split(".")[-2].split("/")[-1]+" done!"
 
 
 
@@ -81,7 +81,7 @@ def download_image(avcode):
 
     s = requests.Session()
 
-    r = s.get(url+avcode, proxies=socks5proxy)
+    r = s.get(url+avcode, proxies=proxy)
     gid = re.findall(r'[\d]{10,11}',r.text)
     #gid 10-11
 
@@ -105,7 +105,7 @@ def download_image(avcode):
     download_image_over_socks5(img_src)
 
     #sample picture
-
+    print '[*] Downloading sample image'
     sample_node = soup.findAll('a',class_="sample-box")
     for sample in sample_node:
         sample_src = sample.get('href')
@@ -129,18 +129,18 @@ def get_av_magnet(avcode):
     s = requests.Session()
     gid = download_image(avcode)
 
-    r2 = s.get("http://www.javbus.com/ajax/uncledatoolsbyajax.php?gid="+str(gid[0])+"&lang=zh&uc=0", proxies=socks5proxy, headers=Referer)
+    r2 = s.get("http://www.javbus.com/ajax/uncledatoolsbyajax.php?gid="+str(gid[0])+"&lang=zh&uc=0", proxies=proxy, headers=Referer)
     soup = BeautifulSoup(r2.content.decode('utf-8', 'ignore'),'html.parser')
 
     trs  = soup.findAll('tr',attrs={"height":"35px"})
-
+    print '[*] get magnet link'
     for tr in trs:
         trsoup = BeautifulSoup(str(tr).decode('utf-8', 'ignore'),'html.parser')
         td2 = trsoup.findAll('td',attrs={"style":"text-align:center;white-space:nowrap"})
         a = td2[0].find('a')
         magnet = a.get("href") #unicode object
         size = a.text.strip()
-        print magnet,"\n",size
+        print '[*] '+magnet,size
 
     os.chdir("../..")
 
