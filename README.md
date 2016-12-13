@@ -21,70 +21,91 @@ $ python jav-download.py
 ## Usage
 
 ```bash
-  Usage: python jav-download.py [options]
+usage: jav-download.py [-h] [-i ID] [-p PROXY]
 
-  Options:
+Find magnetlink and download cover image via javID
 
-    -h, --help                show help
-	-a, --avcode              javID what you want to download
+optional arguments:
+  -h, --help            show this help message and exit
+  -i ID, --id ID        avcode you want to download
+  -p PROXY, --proxy PROXY
+                        set your own HTTP/socks5
+
 ```
 
 
 ### Examples
 
 ```bash
-# 下载番号为mum-238的影片
-$ python downcode4javbus.py -a mum238
-MUM-238 私の事を愛してくれる友達のお父さん。 141cmつるつる いろはめる
-download cover image
-5j6h_b done!
-mum00238jp-1 done!
-mum00238jp-2 done!
-mum00238jp-3 done!
-mum00238jp-4 done!
-mum00238jp-5 done!
-mum00238jp-6 done!
-mum00238jp-7 done!
-mum00238jp-8 done!
-mum00238jp-9 done!
-mum00238jp-10 done!
-magnet:?xt=urn:btih:21BB8BB985441E2871B3E8676434EB733FA86003&dn=MUM-238 
-2.06GB
-magnet:?xt=urn:btih:96DF6A80477348E182769BE6484F28DDBFDEB482&dn=0703_MUM-238.avi 
-2.04GB
-magnet:?xt=urn:btih:6CEF2900746528D5B267495604BF201AC5014C03&dn=MUM-238.avi 
-2.04GB
-magnet:?xt=urn:btih:A9DAE855800D93EFD8880972F15421F4F4F76600&dn=MUM-238-AVI 
-2.04GB
+# 查找番号为star-735的影片
+# 代理设置为socks5://127.0.0.1:8888
+$ python jav-download.py -i star735 -p socks5://127.0.0.1:8888
+[*] proxyurl set tosocks5://127.0.0.1:8888
+[*] Current working directory /root/javID-SearchTool
+[*] STAR-735 SODstar マジックミラー号誕生20周年記念作品 桐谷まつり AV Debut
+[*] Downloading cover image
+[-] 5stj_b done!
+[*] Downloading sample image
+[-] 1star00735jp-1 done!
+[-] 1star00735jp-2 done!
+[-] 1star00735jp-3 done!
+[-] 1star00735jp-4 done!
+[-] 1star00735jp-5 done!
+[-] 1star00735jp-6 done!
+[-] 1star00735jp-7 done!
+[-] 1star00735jp-8 done!
+[-] 1star00735jp-9 done!
+[-] 1star00735jp-10 done!
+[-] 1star00735jp-11 done!
+[-] 1star00735jp-12 done!
+[-] 1star00735jp-13 done!
+[-] 1star00735jp-14 done!
+[-] 1star00735jp-15 done!
+[-] 1star00735jp-16 done!
+[-] 1star00735jp-17 done!
+[-] 1star00735jp-18 done!
+[-] 1star00735jp-19 done!
+[-] 1star00735jp-20 done!
+[*] get magnet link
+[*] magnet:?xt=urn:btih:C0335858DB2DF637114C11F556F5FF50A0FC949C&dn=star-735.mp4 2.09GB
+[*] magnet:?xt=urn:btih:D67C963FCB2257DA14B20DBA90DF5C12C32031E3&dn=1211-javbo.net_star-735 4.2GB
 ```
 文件结构
 ```bash
 $ tree
-.
-├── jav-download.py
 ├── library
-│   └── MUM-238 私の事を愛してくれる友達のお父さん。 141cmつるつる いろはめる
-│       ├── 5j6h_b.jpg
-│       ├── mum00238jp-10.jpg
-│       ├── mum00238jp-1.jpg
-│       ├── mum00238jp-2.jpg
-│       ├── mum00238jp-3.jpg
-│       ├── mum00238jp-4.jpg
-│       ├── mum00238jp-5.jpg
-│       ├── mum00238jp-6.jpg
-│       ├── mum00238jp-7.jpg
-│       ├── mum00238jp-8.jpg
-│       └── mum00238jp-9.jpg
+│   └── STAR-735 SODstar マジックミラー号誕生20周年記念作品 桐谷まつり AV Debut
+│       ├── 1star00735jp-10.jpg
+│       ├── 1star00735jp-11.jpg
+│       ├── 1star00735jp-12.jpg
+│       ├── 1star00735jp-13.jpg
+│       ├── 1star00735jp-14.jpg
+│       ├── 1star00735jp-15.jpg
+│       ├── 1star00735jp-16.jpg
+│       ├── 1star00735jp-17.jpg
+│       ├── 1star00735jp-18.jpg
+│       ├── 1star00735jp-19.jpg
+│       ├── 1star00735jp-1.jpg
+│       ├── 1star00735jp-20.jpg
+│       ├── 1star00735jp-2.jpg
+│       ├── 1star00735jp-3.jpg
+│       ├── 1star00735jp-4.jpg
+│       ├── 1star00735jp-5.jpg
+│       ├── 1star00735jp-6.jpg
+│       ├── 1star00735jp-7.jpg
+│       ├── 1star00735jp-8.jpg
+│       ├── 1star00735jp-9.jpg
+│       └── 5stj_b.jpg
+
 
 ```
 
 
 ## Notes
-- 运行需要代理：xx-net socks5都可以
-- 默认代理是ss的代理：127.0.0.1:1080 
+- 运行需要代理：目前滋滋 HTTP/SOCKS5 代理请自备
+- 默认代理是socks5：127.0.0.1:1080
 - 封面和例图会放在运行目录下的library目录中
 
 ## Todo
-- 将本地代理ip端口放到选项中，自定义选择
 - magnet链接转换为种子，下载到对应目录中
 - 滋滋telegram bot
