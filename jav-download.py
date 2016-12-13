@@ -4,34 +4,31 @@
 """
 @author: VegetableCat
 """
-import optparse,argparse,sys,os,requests,re
+import argparse,sys,os,requests,re
 from bs4 import BeautifulSoup
 
 url = "https://www.javbus.com/"
-#xx-net proxy
-goagentproxy = {
-        'http': 'http://127.0.0.1:8087',
-        'https': 'http://127.0.0.1:8087',
-}
 
-#socks5 proxy
-socks5proxy = {
+
+#proxy default config
+proxy = {
         'http':'socks5://127.0.0.1:1080',
         'https':'socks5://127.0.0.1:1080',
 }
 
-global gid
 
 
 
 def main():
-    # get avcode
-    parser = argparse.ArgumentParser()
-    parser.add_argument('-a',help='avcode you want to download (eg.MUM-239/mum239)' ,dest='avcode',default=None)
+    # get avID
+    parser = argparse.ArgumentParser(description='Find magnetlink and download cover image via javID')
+    parser.add_argument('-a','--id',help='avcode you want to download' ,dest='id',default=None)
+    parser.add_argument('-p','--proxy',help='set your own HTTP/socks5',dest='proxy',default=None)
+
     args = parser.parse_args()
 
-    avcode = args.avcode
-
+    avcode = args.id
+    proxies = args.proxy
 
 
     if avcode == None:
@@ -49,12 +46,17 @@ def main():
         if not l[0]=='n':#tokyohot
             avcode = ''.join(l)
 
+    #set proxy address
+    if not proxies == None:
+        proxy['http'] = proxies
+        proxy['https'] = proxies
+        print '[*] proxyurl set to' + proxies
 
 
     #change directory to library
 
     cwd = os.getcwd()
-    print "current working directory",cwd
+    print "[*] Current working directory",cwd
     wd = cwd+"/"+"library"
     if not os.path.exists(wd):
         os.mkdir(wd)
@@ -63,7 +65,6 @@ def main():
 
 
 
-    # download_image(avcode)
     get_av_magnet(avcode)
 
 
@@ -90,7 +91,7 @@ def download_image(avcode):
     name_node = soup.find('h3')
 
     name = name_node.text
-    print name
+    print '[*] '+name
 
     cwd = os.getcwd()
     wd = cwd+"/"+name
@@ -98,7 +99,7 @@ def download_image(avcode):
         os.mkdir(wd)
     os.chdir(wd)
 
-    print "download cover image"
+    print "[*] Downloading cover image"
     img_node = soup.find('a', attrs={"class":"bigImage"})
     img_src = img_node.get('href')
     download_image_over_socks5(img_src)
@@ -150,4 +151,3 @@ def get_av_magnet(avcode):
 
 if __name__ == '__main__':
     main()
-
