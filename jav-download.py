@@ -57,7 +57,7 @@ def main():
 
     cwd = os.getcwd()
     print "[*] Current working directory",cwd
-    wd = cwd+"/"+"library"
+    wd = os.path.join(cwd,'library')
     if not os.path.exists(wd):
         os.mkdir(wd)
 
@@ -82,8 +82,13 @@ def download_image(avcode):
     s = requests.Session()
 
     r = s.get(url+avcode, proxies=proxy)
-    gid = re.findall(r'[\d]{10,11}',r.text)
+    gidd = re.findall(r'[\d]{10,11}',r.text)
+    gid = str(gidd[0])
     #gid 10-11
+    # print gid
+
+    ucc = re.findall(r'uc = [\d]',r.text)
+    uc = str(ucc[0].split()[2])
 
     soup = BeautifulSoup(r.content.decode('utf-8', 'ignore'),'html.parser')
 
@@ -94,7 +99,7 @@ def download_image(avcode):
     print '[*] '+name
 
     cwd = os.getcwd()
-    wd = cwd+"/"+name
+    wd = os.path.join(cwd,name)
     if not os.path.exists(wd):
         os.mkdir(wd)
     os.chdir(wd)
@@ -112,24 +117,29 @@ def download_image(avcode):
         download_image_over_socks5(sample_src)
 
 
-    return gid
+    return gid,uc
 
 
-    #todo：download image
+
 def get_av_magnet(avcode):
 
 
 
-    uc = 0 #?
-    lang = "zh"
+
     Referer={
     "Referer": "123"
     }
 
     s = requests.Session()
-    gid = download_image(avcode)
+    gid,uc = download_image(avcode)
 
-    r2 = s.get("http://www.javbus.com/ajax/uncledatoolsbyajax.php?gid="+str(gid[0])+"&lang=zh&uc=0", proxies=proxy, headers=Referer)
+    params={
+    'gid':gid,
+    'uc':uc,
+    'lang':'zh'
+    }
+
+    r2 = s.get("http://www.javbus.com/ajax/uncledatoolsbyajax.php",params=params, proxies=proxy, headers=Referer)
     soup = BeautifulSoup(r2.content.decode('utf-8', 'ignore'),'html.parser')
 
     trs  = soup.findAll('tr',attrs={"height":"35px"})
