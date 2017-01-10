@@ -104,8 +104,12 @@ $ tree
 ## Notes
 - 运行需要代理：目前滋滋 HTTP/SOCKS5 代理请自备
 - 默认代理是socks5：127.0.0.1:1080
-- 封面和例图会放在运行目录下的library目录中
+- 封面和例图会放在运行目录(不是脚本的存放目录)下的library目录中
 
 ## Todo
 - magnet链接转换为种子，下载到对应目录中
-- 滋滋telegram bot
+
+## telegram bot
+- bot @kerker233_bot
+- /randomcar 随机发车
+- /jav javID 查询番号的封面和磁链
