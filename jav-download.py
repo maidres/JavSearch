@@ -101,7 +101,12 @@ def download_image(avcode):
     cwd = os.getcwd()
     wd = os.path.join(cwd,name)
     if not os.path.exists(wd):
-        os.mkdir(wd)
+        try:
+            os.mkdir(wd)
+        except OSError,e:
+            print len(wd)
+            print len(wd[:90])
+            os.mkdir(wd[:100])
     os.chdir(wd)
 
     print "[*] Downloading cover image"
