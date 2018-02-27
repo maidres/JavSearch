@@ -1,18 +1,18 @@
-#javID-SearchTool
+#JavSearch
 
 Find magnetlink and download cover image via javID
 
-一个可以通过番号来下载封面和磁链的单线程小工具。
+一个可以通过番号来下载封面和获取磁链的小工具。
 
 
 
 ## Installation
 
 ```bash
-$ git clone https://github.com/VegetableCat/javID-SearchTool
-$ cd javID-SearchTool
+$ git clone https://github.com/qwqmeow/JavSearch
+$ cd JavSearch
 $ pip install -r requirments.txt
-$ python jav-download.py
+$ python search.py
 ```
 
 
@@ -21,15 +21,14 @@ $ python jav-download.py
 ## Usage
 
 ```bash
-usage: jav-download.py [-h] [-i ID] [-p PROXY]
+usage: search.py [-h] [-i ID] [-p PROXY]
 
 Find magnetlink and download cover image via javID
 
 optional arguments:
   -h, --help            show this help message and exit
   -i ID, --id ID        avcode you want to download
-  -p PROXY, --proxy PROXY
-                        set your own HTTP/socks5
+  -p PROXY, --proxy PROXY    set your own HTTP/socks5
 
 ```
 
@@ -39,9 +38,9 @@ optional arguments:
 ```bash
 # 查找番号为star-735的影片
 # 代理设置为socks5://127.0.0.1:8888
-$ python jav-download.py -i star735 -p socks5://127.0.0.1:8888
+$ python search.py -i star735 -p socks5://127.0.0.1:8888
 [*] proxyurl set tosocks5://127.0.0.1:8888
-[*] Current working directory /root/javID-SearchTool
+[*] Current working directory /root/JavSearch
 [*] STAR-735 SODstar マジックミラー号誕生20周年記念作品 桐谷まつり AV Debut
 [*] Downloading cover image
 [-] 5stj_b done!
